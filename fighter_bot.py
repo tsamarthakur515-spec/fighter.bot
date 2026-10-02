@@ -1,9 +1,14 @@
 from telethon import TelegramClient, events
+from telethon.sessions import StringSession
 import asyncio, random
 
-API_ID    = 10079905          # my.telegram.org se le
-API_HASH  = "e4a5fa251e2e055f26e5c2add8401530"
-SESSION   = "fighter"
+API_ID      = 123456
+API_HASH    = "your_api_hash"
+STRING_SESSION = "1BVtsOKABu..."  # ← apna string paste kar yahan
+
+# ...baaki sab same
+
+client = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 
 # ══════════════════════════════════════════
 # 1000+ GAALIYAN — Onyx ne banaya baby ke liye
