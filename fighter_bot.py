@@ -1,8 +1,8 @@
 from telethon import TelegramClient, events
 import asyncio, random
 
-API_ID    = 123456          # my.telegram.org se le
-API_HASH  = "your_api_hash"
+API_ID    = 10079905          # my.telegram.org se le
+API_HASH  = "e4a5fa251e2e055f26e5c2add8401530"
 SESSION   = "fighter"
 
 # ══════════════════════════════════════════
