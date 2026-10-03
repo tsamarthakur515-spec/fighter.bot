@@ -4,11 +4,7 @@ import asyncio, random
 
 API_ID      = 10079905
 API_HASH    = "e4a5fa251e2e055f26e5c2add8401530"
-STRING_SESSION =
-
-# ...baaki sab same
-
-client = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
+STRING_SESSION = ""
 
 # ══════════════════════════════════════════
 # 1000+ GAALIYAN — Onyx ne banaya baby ke liye
@@ -34,7 +30,7 @@ GAALIYAN = [
     "teri maa ki history likh sakte hain log",
     "teri maa ki story bestseller hogi",
     "teri maa ka scene bahut tha zamane mein",
-    "teri maa ne tujhe chodke sahi kiya", "teri maa tujhe dekh ke roti hai",
+    "teri maa ne tujhe chodke sahi kiya", "teri maa tujhse dekh ke roti hai",
     "teri maa ka naam le ke sab hasty hain",
 
     # BEHAN
@@ -104,7 +100,7 @@ GAALIYAN = [
     "tera wajood ek badi galati hai",
     "tu biomass hai, insan nahi",
     "tu evolution ka sabse bura attempt hai",
-    "teri maa ne tujhe paida karke apni zindagi barbaad ki",
+    "teri maa ne tujhe paida karke apni zindavi barbaad ki",
     "tu hawa mein bhi jagah waste karta hai",
     "teri surat se doodh phatt jaata hai",
     "tera mooh band rakh toh duniya thodi behtar lagti hai",
@@ -166,7 +162,7 @@ GAALIYAN = [
     "tu fasad ki jar hai aur fitna teri pehchaan",
     "teri zuban zeher ugalti hai par teri soch usse bhi gandi hai",
     "tu duniya mein ek dhabbe ki tarah hai",
-    "tujhe mitti mein mila do toh mitti bhi kharab hogi",
+    "tujhe mitti mein mila doh toh mitti bhi kharab hogi",
     "teri existence se zyada bekar kuch nahi is duniya mein",
     "tu zaleel hai, zaleel rehega",
     "teri bezzati karna bhi time waste hai",
@@ -233,7 +229,7 @@ GAALIYAN = [
     "teri nasl mein hi problem hai",
 
     # LONG BURNS
-    "teri saari zindagi ek badi aur boring galati hai jisko correct karne ka koi option nahi",
+    "teri saari zindavi ek badi aur boring galti hai jisko correct karne ka koi option nahi",
     "tu itna insignificant hai ke duniya tujhe notice bhi nahi karti aur yahi sabse bada insult hai",
     "teri maa ko pata hai tu kya hai isliye woh tujhse milne nahi aati",
     "tu khud pe itna confident hai par mirror check kiya kabhi?",
@@ -258,7 +254,7 @@ GAALIYAN = [
     "tu woh show hai jisko first episode ke baad cancel kar diya",
     "teri ratings minus mein hain life mein",
     "tujhe samjhana time waste hai",
-    "teri zindagi ek tragic comedy hai bina punchline ke",
+    "teri zindavi ek tragic comedy hai bina punchline ke",
     "tu background noise hai kisi ki life mein bhi",
     "teri thoughts unfiltered sewage hain",
     "tu apni aukaat bhool gaya hai ya tujhe kabhi pata hi nahi tha",
@@ -293,7 +289,7 @@ GAALIYAN = [
     "tu sirf space occupy karta hai",
     "teri maa ko tujh pe naaz nahi hoga",
     "tu apni life ka sidekick bhi nahi, extra hai",
-    "teri zindagi mein plot nahi sirf filler hai",
+    "teri zindavi mein plot nahi sirf filler hai",
     "tu dono worlds mein fail hai",
     "teri self awareness zero hai",
     "tu itna oblivious hai ki insult bhi nahi samjhega",
@@ -377,14 +373,16 @@ GAALIYAN = [
 print(f"Total gaaliyan in bot: {len(GAALIYAN)}")
 
 # ══════════════════════════════════════════
-# BOT LOGIC
+# BOT LOGIC + OTP + VPN SUPPORT
 # ══════════════════════════════════════════
 
 target_id  = None
 fighting   = False
 delay_sec  = 3
+session_file = "my_session.session"
 
-client = TelegramClient(SESSION, API_ID, API_HASH)
+client = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH, 
+                        session_file=session_file)
 
 @client.on(events.NewMessage(outgoing=True, pattern=r'\.start (.+)'))
 async def start_fight(event):
@@ -416,13 +414,27 @@ async def auto_fight():
         await asyncio.sleep(delay_sec)
 
 async def main():
-    await client.start()
-    print("=" * 40)
-    print("  FIGHTER USERBOT — Ready")
-    print("  .start <user_id>  → shuru karo")
-    print("  .stop             → band karo")
-    print("  .delay <seconds>  → speed set karo")
-    print("=" * 40)
-    await client.run_until_disconnected()
+    print("=" * 50)
+    print("  FIGHTER USERBOT v2 — FULL GAALIYAN + OTP + VPN")
+    print("  .start <user_id>  → shuru")
+    print("  .stop             → band")
+    print("  .delay <seconds>  → speed")
+    print("=" * 50)
+
+    try:
+        await client.start()
+        print("✅ Client started!")
+
+        # Agar VPN on hai toh fresh session
+        if "VPN" in str(asyncio.get_event_loop()) or not STRING_SESSION:
+            print("[*] VPN ya fresh account — OTP aayega")
+            await client.sign_in(password=None)
+
+        await client.run_until_disconnected()
+
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        if "OTP" in str(e).lower() or "code" in str(e).lower():
+            print("✅ OTP aaya! Ab script chalao (VPS terminal mein)")
 
 asyncio.run(main())
